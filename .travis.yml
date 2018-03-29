@@ -11,4 +11,4 @@ addons:
       - cmake
       - cmake-data
       - libgtest-dev
-script: g++ test.cpp -std=c++14 -lgtest -lgtest_main -lpthread
+script: g++ test.cpp -lgtest -lgtest_main -lpthread -std=c++11
