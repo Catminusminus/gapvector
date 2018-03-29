@@ -11,9 +11,4 @@ addons:
       - cmake
       - cmake-data
       - libgtest-dev
-before_script:
-  - cd /usr/src/gtest 
-  - cmake .
-  - cmake --build .
-  - mv libg* /usr/local/lib
 script: g++ test.cpp -std=c++14 -lgtest -lgtest_main -lpthread
