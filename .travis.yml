@@ -16,10 +16,10 @@ before_script:
  - sudo cmake ..
  - sudo make
  - cd ..
- - cd ..
  - export GTEST_ROOT=$PWD
  - export GTEST_INCLUDEDIR=$GTESTROOT/googletest/include
  - export GMOCK_INCLUDEDIR=$GTESTROOT/googlemock/include
  - export GMOCK_LIBDIR=$GTESTROOT/build/googlemock
  - export GTEST_LIBDIR=$GTESTROOT/build/googlemock/gtest
+ - cd ..
 script: g++ test.cpp -std=c++11 -I$GTEST_INCLUDEDIR -L$GTEST_LIBDIR -lgtest -lgtest_main -lpthread
