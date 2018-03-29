@@ -12,9 +12,9 @@ addons:
       - libgtest-dev
 before_script:
   - cd /usr/src/gtest 
-  - mkdir build
+  - sudo mkdir build
   - cd build 
-  - cmake ..
+  - sudo cmake ..
   - make
   - sudo mv libg* /usr/local/lib
 script: g++ test.cpp -std=c++11 -I$/usr/include -L$/usr/local/lib -lgtest -lgtest_main -lpthread
