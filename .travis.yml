@@ -8,13 +8,17 @@ addons:
     packages:
       - g++-7
       - cmake
-      - cmake-data
-      - libgtest-dev
 before_script:
-  - cd /usr/src/gtest 
-  - sudo mkdir build
-  - cd build 
-  - sudo cmake ..
-  - make
-  - sudo mv libg* /usr/local/lib
-script: g++ test.cpp -std=c++11 -I$/usr/include -L$/usr/local/lib -lgtest -lgtest_main -lpthread
+ - git clone https://github.com/google/googletest.git
+ - cd googletest
+ - sudo mkdir build
+ - cd build
+ - sudo cmake ..
+ - sudo make
+ - cd ..
+ - export GTEST_ROOT=$PWD
+ - export GTEST_INCLUDEDIR=$GTESTROOT/googletest/include
+ - export GMOCK_INCLUDEDIR=$GTESTROOT/googlemock/include
+ - export GMOCK_LIBDIR=$GTESTROOT/build/googlemock
+ - export GTEST_LIBDIR=$GTESTROOT/build/googlemock/gtest
+script: g++ test.cpp -std=c++11 -I$GTEST_INCLUDEDIR -L$GTEST_LIBDIR -lgtest -lgtest_main -lpthread
