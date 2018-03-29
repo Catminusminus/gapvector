@@ -10,6 +10,7 @@ addons:
       - cmake
       - cmake-data
       - libgtest-dev
+<<<<<<< HEAD
 before_script:
   - cd /usr/src/gtest 
   - mkdir build
@@ -18,3 +19,6 @@ before_script:
   - make
   - sudo mv libg* /usr/local/lib
 script: g++ test.cpp -std=c++11 -I$/usr/include -L$/usr/local/lib -lgtest -lgtest_main -lpthread
+=======
+script: g++ test.cpp -lgtest -lgtest_main -lpthread -std=c++11
+>>>>>>> abdc18c387b25a0de37eb26d2643d0ba38728829
