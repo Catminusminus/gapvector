@@ -16,6 +16,7 @@ before_script:
  - sudo cmake ..
  - sudo make
  - cd ..
+ - cd ..
  - export GTEST_ROOT=$PWD
  - export GTEST_INCLUDEDIR=$GTESTROOT/googletest/include
  - export GMOCK_INCLUDEDIR=$GTESTROOT/googlemock/include
