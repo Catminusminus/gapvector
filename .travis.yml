@@ -1,0 +1,25 @@
+language: cpp
+compiler: g++
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - george-edison55-precise-backports
+    packages:
+      - g++-7
+      - cmake
+before_script:
+ - git clone https://github.com/google/googletest.git
+ - cd googletest
+ - sudo mkdir build
+ - cd build
+ - sudo cmake ..
+ - sudo make
+ - cd ..
+ - export GTEST_ROOT=$PWD
+ - export GTEST_INCLUDEDIR=$GTEST_ROOT/googletest/include
+ - export GMOCK_INCLUDEDIR=$GTEST_ROOT/googlemock/include
+ - export GMOCK_LIBDIR=$GTEST_ROOT/build/googlemock
+ - export GTEST_LIBDIR=$GTEST_ROOT/build/googlemock/gtest
+ - cd ..
+script: g++ test.cpp -std=c++11 -I$GTEST_INCLUDEDIR -L$GTEST_LIBDIR -lgtest -lgtest_main -lpthread
