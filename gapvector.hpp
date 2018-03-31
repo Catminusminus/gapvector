@@ -26,7 +26,7 @@ public:
   gapvector();
   void insert(int, const T &);
   void push_back(const T &);
-
+  void erase(int);
   void pop_back();
   int size();
   T &operator[](int);
