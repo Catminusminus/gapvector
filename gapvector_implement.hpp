@@ -86,4 +86,14 @@ T &gapvector<T>::operator[](int index)
 	return inner_vector[index + (gap_last - gap_begin + 1)];
 }
 
+template <typename T>
+T &gapvector<T>::at(int index)
+{
+	if (index < gap_begin)
+	{
+		return inner_vector.at(index);
+	}
+	return inner_vector.at(index + (gap_last - gap_begin + 1));
+}
+
 #endif
