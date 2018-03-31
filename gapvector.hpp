@@ -30,7 +30,7 @@ public:
   void pop_back();
   int size();
   T &operator[](int);
-  //T &at(int);
+  T &at(int);
 };
 #include "gapvector_implement.hpp"
 };
