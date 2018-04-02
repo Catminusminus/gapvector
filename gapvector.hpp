@@ -5,6 +5,7 @@
 
 namespace my
 {
+constexpr int N = 10;
 template <typename T>
 class gapvector
 {
@@ -18,7 +19,7 @@ public:
 private:
   std::vector<T> inner_vector;
   int gap_begin = 0;
-  int gap_last = 0;
+  int gap_last = N - 1;
   void format_gapvector(int);
   void gap_alloc();
 
