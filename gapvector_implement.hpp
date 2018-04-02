@@ -1,13 +1,10 @@
 #ifndef GAPVECTOR_IMPLEMENT
 #define GAPVECTOR_IMPLEMENT
 
-constexpr int N = 10;
 template <typename T>
 gapvector<T>::gapvector()
 {
 	inner_vector.resize(N);
-	gap_begin = 0;
-	gap_last = N - 1;
 }
 template <typename T>
 void gapvector<T>::format_gapvector(int index)
