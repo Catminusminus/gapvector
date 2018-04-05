@@ -48,3 +48,15 @@ TEST(test_gapvector, at)
     ASSERT_EQ(2, gap_v.at(1));
     ASSERT_THROW(gap_v.at(2), std::out_of_range);
 }
+
+TEST(test_gapvector, copy_constructor)
+{
+    my::gapvector<int> gap_v;
+    gap_v.push_back(1);
+    gap_v.push_back(2);
+    my::gapvector<int> gap_v2 = gap_v;
+    ASSERT_EQ(1, gap_v2.at(0));
+    ASSERT_EQ(2, gap_v2.at(1));
+    gap_v.erase(1);
+    ASSERT_EQ(2, gap_v2.at(1));
+}
