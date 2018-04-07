@@ -47,7 +47,7 @@ template <typename T>
 void gapvector<T>::insert(int index, T &&value)
 {
 	format_gapvector(index);
-	inner_vector[index] = value;
+	inner_vector[index] = std::move(value);
 	++gap_begin;
 	gap_alloc();
 	return;
@@ -62,7 +62,7 @@ void gapvector<T>::push_back(const T &value)
 template <typename T>
 void gapvector<T>::push_back(T &&value)
 {
-	inner_vector.push_back(value);
+	inner_vector.push_back(std::move(value));
 }
 
 template <typename T>
