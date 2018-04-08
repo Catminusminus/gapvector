@@ -3,9 +3,15 @@
 
 #include <vector>
 
+#include "gapvector_iterator.hpp"
+
 namespace my
 {
 constexpr int N = 10;
+
+template <typename T>
+class gapvectorIterator;
+
 template <typename T>
 class gapvector
 {
