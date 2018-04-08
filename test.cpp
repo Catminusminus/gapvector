@@ -60,3 +60,12 @@ TEST(test_gapvector, copy_constructor)
     gap_v.erase(1);
     ASSERT_EQ(2, gap_v2.at(1));
 }
+
+TEST(test_gapvectorIterator, subscript_operator)
+{
+    my::gapvector<int> gap_v;
+    gap_v.push_back(1);
+    gap_v.push_back(2);
+    ASSERT_EQ(1, gap_v[0]);
+    ASSERT_EQ(2, gap_v[1]);
+}

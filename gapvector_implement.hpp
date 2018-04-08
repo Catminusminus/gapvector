@@ -62,7 +62,7 @@ void gapvector<T>::push_back(const T &value)
 template <typename T>
 void gapvector<T>::push_back(T &&value)
 {
-	inner_vector.push_back(std::move(value));
+	inner_vector.push_back(std::forward<T>(value));
 }
 
 template <typename T>
