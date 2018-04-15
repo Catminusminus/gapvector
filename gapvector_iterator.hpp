@@ -2,6 +2,7 @@
 #define GAPVECTOR_ITERATOR_HPP
 
 #include "gapvector.hpp"
+#include <boost/iterator/iterator_facade.hpp>
 #include <iterator>
 #include <memory>
 
@@ -11,19 +12,30 @@ template <typename T>
 class gapvector;
 
 template <typename T>
-class gapvectorIterator : public std::iterator<std::random_access_iterator_tag, T>
+class gapvectorIterator : public boost::iterator_facade<gapvectorIterator<T>, T, boost::random_access_traversal_tag>
 {
   template <typename>
   friend class gapvector;
 
 private:
-  size_t index;
+  friend class boost::iterator_core_access;
+  std::shared_ptr<gapvector<T>> gap_vector;
+  int index = 0;
+
+public:
+  void increment();
+  void decrement();
+  T &dereference() const;
+  bool equal(const gapvectorIterator<T> &) const;
+  size_t distance_to(const gapvectorIterator<T> &) const;
+  void advance(size_t);
+  /*size_t index;
   std::shared_ptr<gapvector<T>> ptr_gap_vector;
   gapvectorIterator();
   gapvectorIterator(std::shared_ptr<gapvector<T>>, int);
-
+*/
 public:
-  gapvectorIterator(const gapvectorIterator &);
+  gapvectorIterator(const gapvectorIterator<T> &);
 };
 #include "gapvector_iterator_implement.hpp"
 };
