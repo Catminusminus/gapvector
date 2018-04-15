@@ -110,4 +110,15 @@ T &gapvector<T>::at(int index)
 	return inner_vector.at(index + (gap_last - gap_begin + 1));
 }
 
+template <typename T>
+typename gapvector<T>::iterator gapvector<T>::begin()
+{
+	return gapvectorIterator<T>(this);
+}
+
+template <typename T>
+typename gapvector<T>::iterator gapvector<T>::end()
+{
+	return gapvectorIterator<T>(NULL);
+}
 #endif

@@ -15,12 +15,13 @@ class gapvectorIterator;
 template <typename T>
 class gapvector
 {
-  /*friend gapvectorIterator;
+  template <typename>
+  friend class gapvectorIterator;
 
 public:
-  using iterator = gapvectorIterator;
+  using iterator = gapvectorIterator<T>;
   gapvector::iterator begin();
-  gapvector::iterator end();*/
+  gapvector::iterator end();
 
 private:
   std::vector<T> inner_vector;
