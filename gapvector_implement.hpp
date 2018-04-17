@@ -85,6 +85,16 @@ void gapvector<T>::pop_back()
 }
 
 template <typename T>
+void gapvector<T>::clear()
+{
+	inner_vector.clear();
+
+	inner_vector.resize(N);
+	gap_begin = 0;
+	gap_last = 0;
+}
+
+template <typename T>
 int gapvector<T>::size()
 {
 	return inner_vector.size() - (gap_last - gap_begin + 1);
