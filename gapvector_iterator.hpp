@@ -29,12 +29,7 @@ public:
   bool equal(const gapvectorIterator<T> &) const;
   size_t distance_to(const gapvectorIterator<T> &) const;
   void advance(size_t);
-  /*size_t index;
-  std::shared_ptr<gapvector<T>> ptr_gap_vector;
-  gapvectorIterator();
-  gapvectorIterator(std::shared_ptr<gapvector<T>>, int);
-*/
-public:
+
   gapvectorIterator(const gapvectorIterator<T> &);
 };
 #include "gapvector_iterator_implement.hpp"

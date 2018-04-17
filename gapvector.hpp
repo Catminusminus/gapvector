@@ -38,6 +38,7 @@ public:
   void push_back(T &&);
   void erase(int);
   void pop_back();
+  void clear();
   int size();
   T &operator[](int);
   T &at(int);
