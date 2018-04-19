@@ -139,6 +139,6 @@ typename gapvector<T>::iterator gapvector<T>::begin()
 template <typename T>
 typename gapvector<T>::iterator gapvector<T>::end()
 {
-	return gapvectorIterator<T>(NULL);
+	return gapvectorIterator<T>(nullptr);
 }
 #endif
