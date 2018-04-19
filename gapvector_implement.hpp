@@ -83,6 +83,16 @@ void gapvector<T>::erase(int index)
 }
 
 template <typename T>
+typename gapvector<T>::iterator gapvector<T>::erase(typename gapvector<T>::iterator itr)
+{
+	size_t index = itr.index;
+	erase(index);
+	gapvectorIterator<T> gap_v_itr;
+	gap_v_itr.advance(index);
+	return gap_v_itr;
+}
+
+template <typename T>
 void gapvector<T>::pop_back()
 {
 	if (inner_vector.size() - 1 = gap_last)

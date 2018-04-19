@@ -4,20 +4,12 @@
 template <typename T>
 void gapvectorIterator<T>::increment()
 {
-    if (index + 1 == gap_vector->gap_begin)
-    {
-        index = gap_vector->gap_last + 1;
-    }
     ++index;
 }
 
 template <typename T>
 void gapvectorIterator<T>::decrement()
 {
-    if (index - 1 == gap_vector->gap_last)
-    {
-        index = gap_vector->gap_begin - 1;
-    }
     --index;
 }
 

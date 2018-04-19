@@ -79,4 +79,15 @@ TEST_F(TestGapvector, insert_itr)
     auto itr = gap_v.begin();
     itr = gap_v.insert(itr, 3);
     ASSERT_EQ(3, gap_v[0]);
+    ++itr;
+    ASSERT_EQ(1, *(itr));
+}
+
+
+TEST_F(TestGapvector, erase_itr)
+{
+    auto itr = gap_v.begin();
+    itr = gap_v.insert(itr, 3);
+    itr = gap_v.erase(itr);
+    ASSERT_EQ(2, gap_v[1]);
 }
