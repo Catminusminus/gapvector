@@ -38,7 +38,7 @@ public:
   void push_back(const T &);
   void push_back(T &&);
   void erase(int);
-  //iterator erase(iterator);
+  iterator erase(iterator);
   void pop_back();
   void clear();
   int size();

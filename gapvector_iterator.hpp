@@ -32,8 +32,6 @@ public:
   bool equal(const gapvectorIterator<T> &) const;
   size_t distance_to(const gapvectorIterator<T> &) const;
   void advance(size_t);
-
-  //gapvectorIterator(const gapvectorIterator<T> &);
 };
 #include "gapvector_iterator_implement.hpp"
 };
