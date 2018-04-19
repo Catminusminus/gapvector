@@ -57,3 +57,26 @@ TEST_F(TestGapvector, copy)
     gap_v.erase(1);
     ASSERT_EQ(2, gap_v2.at(1));
 }
+
+TEST_F(TestGapvector, begin)
+{
+    auto itr = gap_v.begin();
+    ASSERT_EQ(1, *itr);
+}
+
+TEST_F(TestGapvector, loop)
+{
+    int i = 1;
+    for (auto itr = gap_v.begin(); itr != gap_v.end(); ++itr)
+    {
+        ASSERT_EQ(i, *itr);
+        ++i;
+    }
+}
+
+TEST_F(TestGapvector, insert_itr)
+{
+    auto itr = gap_v.begin();
+    itr = gap_v.insert(itr, 3);
+    ASSERT_EQ(3, gap_v[0]);
+}

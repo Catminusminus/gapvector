@@ -19,8 +19,11 @@ class gapvectorIterator : public boost::iterator_facade<gapvectorIterator<T>, T,
 
 private:
   friend class boost::iterator_core_access;
-  std::shared_ptr<gapvector<T>> gap_vector;
+  gapvector<T> *gap_vector;
   int index = 0;
+
+  gapvectorIterator();
+  gapvectorIterator(gapvector<T> *);
 
 public:
   void increment();
@@ -30,7 +33,7 @@ public:
   size_t distance_to(const gapvectorIterator<T> &) const;
   void advance(size_t);
 
-  gapvectorIterator(const gapvectorIterator<T> &);
+  //gapvectorIterator(const gapvectorIterator<T> &);
 };
 #include "gapvector_iterator_implement.hpp"
 };

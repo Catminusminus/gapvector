@@ -20,8 +20,8 @@ class gapvector
 
 public:
   using iterator = gapvectorIterator<T>;
-  gapvector::iterator begin();
-  gapvector::iterator end();
+  iterator begin();
+  iterator end();
 
 private:
   std::vector<T> inner_vector;
@@ -34,9 +34,11 @@ public:
   gapvector();
   void insert(int, const T &);
   void insert(int, T &&);
+  iterator insert(iterator, const T &);
   void push_back(const T &);
   void push_back(T &&);
   void erase(int);
+  //iterator erase(iterator);
   void pop_back();
   void clear();
   int size();
