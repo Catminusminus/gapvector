@@ -8,12 +8,12 @@ gapvector<T>::gapvector()
 }
 
 template <typename T>
-void gapvector<T>::format_gapvector(int index)
+void gapvector<T>::format_gapvector(size_t index)
 {
 	if (index == gap_begin)
 		return;
 	inner_vector.erase(inner_vector.begin() + gap_begin, inner_vector.begin() + gap_last + 1);
-	for (auto i = 0; i < gap_last - gap_begin + 1; ++i)
+	for (size_t i = 0; i < gap_last - gap_begin + 1; ++i)
 	{
 		inner_vector.insert(inner_vector.begin() + index, 0);
 	}
@@ -34,7 +34,7 @@ void gapvector<T>::gap_alloc()
 }
 
 template <typename T>
-void gapvector<T>::insert(int index, const T &value)
+void gapvector<T>::insert(size_t index, const T &value)
 {
 	format_gapvector(index);
 	inner_vector[index] = value;
@@ -44,7 +44,7 @@ void gapvector<T>::insert(int index, const T &value)
 }
 
 template <typename T>
-void gapvector<T>::insert(int index, T &&value)
+void gapvector<T>::insert(size_t index, T &&value)
 {
 	format_gapvector(index);
 	inner_vector[index] = std::forward<T>(value);
@@ -76,7 +76,7 @@ void gapvector<T>::push_back(T &&value)
 }
 
 template <typename T>
-void gapvector<T>::erase(int index)
+void gapvector<T>::erase(size_t index)
 {
 	format_gapvector(index);
 	++gap_last;
@@ -121,7 +121,7 @@ int gapvector<T>::size()
 }
 
 template <typename T>
-T &gapvector<T>::operator[](int index)
+T &gapvector<T>::operator[](size_t index)
 {
 	if (index < gap_begin)
 	{
@@ -131,7 +131,7 @@ T &gapvector<T>::operator[](int index)
 }
 
 template <typename T>
-T &gapvector<T>::at(int index)
+T &gapvector<T>::at(size_t index)
 {
 	if (index < gap_begin)
 	{
@@ -151,4 +151,17 @@ typename gapvector<T>::iterator gapvector<T>::end()
 {
 	return gapvectorIterator<T>(nullptr);
 }
+
+template <typename T>
+T &gapvector<T>::front()
+{
+	return (*this)[0];
+}
+
+template <typename T>
+T &gapvector<T>::back()
+{
+	return (*this)[(*this).size() - 1];
+}
+
 #endif

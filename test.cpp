@@ -58,6 +58,20 @@ TEST_F(TestGapvector, copy)
     ASSERT_EQ(2, gap_v2.at(1));
 }
 
+TEST_F(TestGapvector, front)
+{
+    ASSERT_EQ(1, gap_v.front());
+    gap_v.front() = 3;
+    ASSERT_EQ(3, gap_v[0]);
+}
+
+TEST_F(TestGapvector, back)
+{
+    ASSERT_EQ(2, gap_v.back());
+    gap_v.back() = 3;
+    ASSERT_EQ(3, gap_v[1]);
+}
+
 TEST_F(TestGapvector, begin)
 {
     auto itr = gap_v.begin();
@@ -82,7 +96,6 @@ TEST_F(TestGapvector, insert_itr)
     ++itr;
     ASSERT_EQ(1, *(itr));
 }
-
 
 TEST_F(TestGapvector, erase_itr)
 {
