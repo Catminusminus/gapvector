@@ -104,3 +104,13 @@ TEST_F(TestGapvector, erase_itr)
     itr = gap_v.erase(itr);
     ASSERT_EQ(2, gap_v[1]);
 }
+
+TEST_F(TestGapvector, loop_const)
+{
+    int i = 1;
+    for (auto itr = gap_v.cbegin(); itr != gap_v.cend(); ++itr)
+    {
+        ASSERT_EQ(i, *itr);
+        ++i;
+    }
+}

@@ -1,5 +1,5 @@
-#ifndef GAPVECTOR_IMPLEMENT
-#define GAPVECTOR_IMPLEMENT
+#ifndef GAPVECTOR_IMPLEMENT_HPP
+#define GAPVECTOR_IMPLEMENT_HPP
 
 template <typename T>
 gapvector<T>::gapvector()
@@ -115,7 +115,7 @@ void gapvector<T>::clear()
 }
 
 template <typename T>
-int gapvector<T>::size()
+int gapvector<T>::size() const noexcept
 {
 	return inner_vector.size() - (gap_last - gap_begin + 1);
 }
@@ -141,6 +141,16 @@ T &gapvector<T>::at(size_t index)
 }
 
 template <typename T>
+const T &gapvector<T>::at(size_t index) const
+{
+	if (index < gap_begin)
+	{
+		return inner_vector.at(index);
+	}
+	return inner_vector.at(index + (gap_last - gap_begin + 1));
+}
+
+template <typename T>
 typename gapvector<T>::iterator gapvector<T>::begin()
 {
 	return gapvectorIterator<T>(this);
@@ -150,6 +160,18 @@ template <typename T>
 typename gapvector<T>::iterator gapvector<T>::end()
 {
 	return gapvectorIterator<T>(nullptr);
+}
+
+template <typename T>
+typename gapvector<T>::const_iterator gapvector<T>::cbegin()
+{
+	return gapvectorConstIterator<T>(this);
+}
+
+template <typename T>
+typename gapvector<T>::const_iterator gapvector<T>::cend()
+{
+	return gapvectorConstIterator<T>(nullptr);
 }
 
 template <typename T>

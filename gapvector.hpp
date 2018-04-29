@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "gapvector_iterator.hpp"
+#include "gapvector_const_iterator.hpp"
 
 namespace my
 {
@@ -11,17 +12,25 @@ constexpr size_t N = 10;
 
 template <typename T>
 class gapvectorIterator;
+template <typename T>
+class gapvectorConstIterator;
 
 template <typename T>
 class gapvector
 {
   template <typename>
   friend class gapvectorIterator;
+  template <typename>
+  friend class gapvectorConstIterator;
 
 public:
   using iterator = gapvectorIterator<T>;
   iterator begin();
   iterator end();
+
+  using const_iterator = gapvectorConstIterator<T>;
+  const_iterator cbegin();
+  const_iterator cend();
 
 private:
   std::vector<T> inner_vector;
@@ -41,12 +50,13 @@ public:
   iterator erase(iterator);
   void pop_back();
   void clear();
-  int size();
+  int size() const noexcept;
   T &operator[](size_t);
   T &at(size_t);
+  const T &at(size_t) const;
   T &front();
   T &back();
-  T *data();
+  T *data() noexcept;
 };
 #include "gapvector_implement.hpp"
 };
