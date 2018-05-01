@@ -121,7 +121,7 @@ void gapvector<T>::clear()
 
 	inner_vector.resize(N);
 	gap_begin = 0;
-	gap_last = 0;
+	gap_last = N - 1;
 }
 
 template <typename T>
