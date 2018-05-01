@@ -1,2 +1,2 @@
 # gapvector
-Simple implementation of gap vector
+Simple implementation of gap buffer with STL-like interface.

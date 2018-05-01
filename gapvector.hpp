@@ -25,12 +25,12 @@ class gapvector
 
 public:
   using iterator = gapvectorIterator<T>;
-  iterator begin();
-  iterator end();
+  iterator begin() noexcept;
+  iterator end() noexcept;
 
   using const_iterator = gapvectorConstIterator<T>;
-  const_iterator cbegin();
-  const_iterator cend();
+  const_iterator cbegin() const noexcept;
+  const_iterator cend() const noexcept;
 
 private:
   std::vector<T> inner_vector;
@@ -44,6 +44,7 @@ public:
   void insert(size_t, const T &);
   void insert(size_t, T &&);
   iterator insert(iterator, const T &);
+  iterator insert(iterator, T &&);
   void push_back(const T &);
   void push_back(T &&);
   void erase(size_t);
