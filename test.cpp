@@ -114,3 +114,11 @@ TEST_F(TestGapvector, loop_const)
         ++i;
     }
 }
+
+TEST_F(TestGapvector, insert_itr_plus)
+{
+    gap_v.push_back(3);
+    auto itr = gap_v.insert(gap_v.begin() + 1, 4);
+    ASSERT_EQ(4, *itr);
+    ASSERT_EQ(4, gap_v[1]);
+}
