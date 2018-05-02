@@ -133,6 +133,12 @@ int gapvector<T>::size() const noexcept
 template <typename T>
 T &gapvector<T>::operator[](size_t index)
 {
+	return const_cast<T &>((const_cast<const gapvector<T> &>(*this))[index]);
+}
+
+template <typename T>
+const T &gapvector<T>::operator[](size_t index) const
+{
 	if (index < gap_begin)
 	{
 		return inner_vector[index];
@@ -143,11 +149,7 @@ T &gapvector<T>::operator[](size_t index)
 template <typename T>
 T &gapvector<T>::at(size_t index)
 {
-	if (index < gap_begin)
-	{
-		return inner_vector.at(index);
-	}
-	return inner_vector.at(index + (gap_last - gap_begin + 1));
+	return const_cast<T &>((const_cast<const gapvector<T> &>(*this)).at(index));
 }
 
 template <typename T>
@@ -194,6 +196,12 @@ template <typename T>
 T &gapvector<T>::back()
 {
 	return (*this)[(*this).size() - 1];
+}
+
+template <typename T>
+T *gapvector<T>::data() noexcept
+{
+	return addressof(front());
 }
 
 #endif

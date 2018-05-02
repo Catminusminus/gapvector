@@ -53,11 +53,13 @@ public:
   void clear();
   int size() const noexcept;
   T &operator[](size_t);
+  const T &operator[](size_t) const;
   T &at(size_t);
   const T &at(size_t) const;
   T &front();
   T &back();
   T *data() noexcept;
+  const T *data() const noexcept;
 };
 #include "gapvector_implement.hpp"
 };
