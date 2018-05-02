@@ -25,10 +25,12 @@ class gapvector
 
 public:
   using iterator = gapvectorIterator<T>;
-  iterator begin() noexcept;
-  iterator end() noexcept;
-
   using const_iterator = gapvectorConstIterator<T>;
+  iterator begin() noexcept;
+  const_iterator begin() const noexcept;
+  iterator end() noexcept;
+  const_iterator end() const noexcept;
+
   const_iterator cbegin() const noexcept;
   const_iterator cend() const noexcept;
 
@@ -50,14 +52,16 @@ public:
   void erase(size_t);
   iterator erase(iterator);
   void pop_back();
-  void clear();
+  void clear() noexcept;
   int size() const noexcept;
   T &operator[](size_t);
   const T &operator[](size_t) const;
   T &at(size_t);
   const T &at(size_t) const;
   T &front();
+  const T &front() const;
   T &back();
+  const T &back() const;
   T *data() noexcept;
   const T *data() const noexcept;
 };

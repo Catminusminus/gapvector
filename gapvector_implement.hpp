@@ -115,7 +115,7 @@ void gapvector<T>::pop_back()
 }
 
 template <typename T>
-void gapvector<T>::clear()
+void gapvector<T>::clear() noexcept
 {
 	inner_vector.clear();
 
@@ -169,9 +169,21 @@ typename gapvector<T>::iterator gapvector<T>::begin() noexcept
 }
 
 template <typename T>
+typename gapvector<T>::const_iterator gapvector<T>::begin() const noexcept
+{
+	return gapvectorConstIterator<T>(this);
+}
+
+template <typename T>
 typename gapvector<T>::iterator gapvector<T>::end() noexcept
 {
 	return gapvectorIterator<T>(nullptr);
+}
+
+template <typename T>
+typename gapvector<T>::const_iterator gapvector<T>::end() const noexcept
+{
+	return gapvectorConstIterator<T>(nullptr);
 }
 
 template <typename T>
@@ -189,17 +201,35 @@ typename gapvector<T>::const_iterator gapvector<T>::cend() const noexcept
 template <typename T>
 T &gapvector<T>::front()
 {
+	return const_cast<T &>((const_cast<const gapvector<T> &>(*this)).front());
+}
+
+template <typename T>
+const T &gapvector<T>::front() const
+{
 	return (*this)[0];
 }
 
 template <typename T>
 T &gapvector<T>::back()
 {
+	return const_cast<T &>((const_cast<const gapvector<T> &>(*this)).back());
+}
+
+template <typename T>
+const T &gapvector<T>::back() const
+{
 	return (*this)[(*this).size() - 1];
 }
 
 template <typename T>
 T *gapvector<T>::data() noexcept
+{
+	return const_cast<T *>((const_cast<const gapvector<T> &>(*this)).data());
+}
+
+template <typename T>
+const T *gapvector<T>::data() const noexcept
 {
 	return addressof(front());
 }
