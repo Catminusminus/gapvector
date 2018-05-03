@@ -75,7 +75,10 @@ TEST_F(TestGapvector, back)
 TEST_F(TestGapvector, begin)
 {
     auto itr = gap_v.begin();
+    ASSERT_FALSE(itr == gap_v.end());
     ASSERT_EQ(1, *itr);
+    ++itr;
+    ASSERT_EQ(2, *itr);
 }
 
 TEST_F(TestGapvector, loop)
@@ -86,12 +89,14 @@ TEST_F(TestGapvector, loop)
         ASSERT_EQ(i, *itr);
         ++i;
     }
+    ASSERT_EQ(3, i);
 }
 
 TEST_F(TestGapvector, insert_itr)
 {
     auto itr = gap_v.begin();
     itr = gap_v.insert(itr, 3);
+    ASSERT_EQ(3, gap_v.size());
     ASSERT_EQ(3, gap_v[0]);
     ++itr;
     ASSERT_EQ(1, *(itr));
@@ -121,4 +126,22 @@ TEST_F(TestGapvector, insert_itr_plus)
     auto itr = gap_v.insert(gap_v.begin() + 1, 4);
     ASSERT_EQ(4, *itr);
     ASSERT_EQ(4, gap_v[1]);
+}
+
+TEST_F(TestGapvector, empty)
+{
+    ASSERT_FALSE(gap_v.empty());
+    gap_v.clear();
+    ASSERT_TRUE(gap_v.empty());
+}
+
+TEST_F(TestGapvector, insert_itr_itr_itr)
+{
+    my::gapvector<int> gap_v2;
+    gap_v2.push_back(3);
+    gap_v2.push_back(4);
+    gap_v.insert(gap_v.begin(), gap_v2.begin(), gap_v2.end());
+    ASSERT_EQ(4, gap_v.size());
+    gap_v2.insert(gap_v2.begin(), gap_v.begin(), gap_v.end());
+    ASSERT_EQ(6, gap_v2.size());
 }

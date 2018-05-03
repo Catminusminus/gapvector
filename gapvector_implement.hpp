@@ -58,7 +58,17 @@ typename gapvector<T>::iterator gapvector<T>::insert(typename gapvector<T>::iter
 {
 	size_t index = itr.index;
 	insert(index, value);
-	gapvectorIterator<T> gap_v_itr;
+	auto gap_v_itr = this->begin();
+	gap_v_itr.advance(index);
+	return gap_v_itr;
+}
+
+template <typename T>
+typename gapvector<T>::iterator gapvector<T>::insert(typename gapvector<T>::const_iterator itr, const T &value)
+{
+	size_t index = itr.index;
+	insert(index, value);
+	auto gap_v_itr = this->begin();
 	gap_v_itr.advance(index);
 	return gap_v_itr;
 }
@@ -68,9 +78,48 @@ typename gapvector<T>::iterator gapvector<T>::insert(typename gapvector<T>::iter
 {
 	size_t index = itr.index;
 	insert(index, std::forward<T>(value));
-	gapvectorIterator<T> gap_v_itr;
+	auto gap_v_itr = this->begin();
 	gap_v_itr.advance(index);
 	return gap_v_itr;
+}
+
+template <typename T>
+typename gapvector<T>::iterator gapvector<T>::insert(typename gapvector<T>::const_iterator itr, T &&value)
+{
+	size_t index = itr.index;
+	insert(index, std::forward<T>(value));
+	auto gap_v_itr = this->begin();
+	gap_v_itr.advance(index);
+	return gap_v_itr;
+}
+
+template <typename T>
+void gapvector<T>::insert(iterator itr, size_t number, const T &value)
+{
+	for (size_t i = 0; i < number; ++i)
+	{
+		itr = insert(itr, value);
+	}
+}
+
+template <typename T>
+typename gapvector<T>::iterator gapvector<T>::insert(const_iterator itr, size_t number, const T &value)
+{
+	for (size_t i = 0; i < number; ++i)
+	{
+		itr = insert(itr, value);
+	}
+}
+
+template <typename T>
+template <class inputIterator>
+void gapvector<T>::insert(iterator itr, inputIterator first, inputIterator end)
+{
+	for (auto input_itr = first; input_itr != end; ++input_itr)
+	{
+		itr = insert(itr, *input_itr);
+		++itr;
+	}
 }
 
 template <typename T>
@@ -97,7 +146,7 @@ typename gapvector<T>::iterator gapvector<T>::erase(typename gapvector<T>::itera
 {
 	size_t index = itr.index;
 	erase(index);
-	gapvectorIterator<T> gap_v_itr;
+	auto gap_v_itr = this->begin();
 	gap_v_itr.advance(index);
 	return gap_v_itr;
 }
@@ -165,37 +214,43 @@ const T &gapvector<T>::at(size_t index) const
 template <typename T>
 typename gapvector<T>::iterator gapvector<T>::begin() noexcept
 {
-	return gapvectorIterator<T>(this);
+	return gapvectorIterator<T>(this, 0);
 }
 
 template <typename T>
 typename gapvector<T>::const_iterator gapvector<T>::begin() const noexcept
 {
-	return gapvectorConstIterator<T>(this);
+	return gapvectorConstIterator<T>(this, 0);
 }
 
 template <typename T>
 typename gapvector<T>::iterator gapvector<T>::end() noexcept
 {
-	return gapvectorIterator<T>(nullptr);
+	return gapvectorIterator<T>(this, this->size());
 }
 
 template <typename T>
 typename gapvector<T>::const_iterator gapvector<T>::end() const noexcept
 {
-	return gapvectorConstIterator<T>(nullptr);
+	return gapvectorConstIterator<T>(this, this->size());
 }
 
 template <typename T>
 typename gapvector<T>::const_iterator gapvector<T>::cbegin() const noexcept
 {
-	return gapvectorConstIterator<T>(this);
+	return gapvectorConstIterator<T>(this, 0);
 }
 
 template <typename T>
 typename gapvector<T>::const_iterator gapvector<T>::cend() const noexcept
 {
-	return gapvectorConstIterator<T>(nullptr);
+	return gapvectorConstIterator<T>(this, this->size());
+}
+
+template <typename T>
+bool gapvector<T>::empty() const noexcept
+{
+	return (size() == 0);
 }
 
 template <typename T>

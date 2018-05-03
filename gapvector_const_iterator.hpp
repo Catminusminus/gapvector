@@ -20,10 +20,10 @@ class gapvectorConstIterator : public boost::iterator_facade<gapvectorConstItera
 private:
   friend class boost::iterator_core_access;
   const gapvector<T> *gap_vector;
-  int index = 0;
+  size_t index;
 
   gapvectorConstIterator();
-  gapvectorConstIterator(const gapvector<T> *);
+  gapvectorConstIterator(const gapvector<T> *, size_t);
 
 public:
   void increment();
