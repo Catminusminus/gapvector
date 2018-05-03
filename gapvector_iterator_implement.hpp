@@ -22,7 +22,7 @@ T &gapvectorIterator<T>::dereference() const
 template <typename T>
 bool gapvectorIterator<T>::equal(const gapvectorIterator<T> &anotherIterator) const
 {
-    return (this->index == anotherIterator.index);
+    return (this->gap_vector == anotherIterator.gap_vector && this->index == anotherIterator.index);
 }
 
 template <typename T>
@@ -47,7 +47,7 @@ gapvectorIterator<T>::gapvectorIterator()
 }
 
 template <typename T>
-gapvectorIterator<T>::gapvectorIterator(gapvector<T> *gap_v) : gap_vector(gap_v)
+gapvectorIterator<T>::gapvectorIterator(gapvector<T> *gap_v, int ind) : gap_vector(gap_v), index(ind)
 {
 }
 
