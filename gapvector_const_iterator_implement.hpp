@@ -47,7 +47,7 @@ gapvectorConstIterator<T>::gapvectorConstIterator()
 }
 
 template <typename T>
-gapvectorConstIterator<T>::gapvectorConstIterator(const gapvector<T> *gap_v, int ind) : gap_vector(gap_v), index(ind)
+gapvectorConstIterator<T>::gapvectorConstIterator(const gapvector<T> *gap_v, size_t ind) : gap_vector(gap_v), index(ind)
 {
 }
 
