@@ -2,7 +2,7 @@
 #define GAPVECTOR_HPP
 
 #include <vector>
-#include <algorithm>
+#include <initializer_list>
 
 #include "gapvector_iterator.hpp"
 #include "gapvector_const_iterator.hpp"
@@ -47,6 +47,13 @@ private:
 
 public:
   gapvector();
+  gapvector(const gapvector &) = default;
+  gapvector(gapvector &&) = default;
+  gapvector(std::initializer_list<T>);
+
+  gapvector &operator=(const gapvector &) = default;
+  gapvector &operator=(gapvector &&) = default;
+  gapvector &operator=(std::initializer_list<T>);
 
   void insert(size_t, const T &);
   void insert(size_t, T &&);
@@ -61,8 +68,17 @@ public:
   template <class inputIterator>
   iterator insert(const_iterator, inputIterator, inputIterator);
 
+  void emplace(size_t);
+  template <class Head, class... Tail>
+  void emplace(size_t, Head &&, Tail &&...);
+  template <class... Args>
+  iterator emplace(const_iterator, Args &&...);
+
   void push_back(const T &);
   void push_back(T &&);
+
+  template <class... Args>
+  void emplace_back(Args &&...);
 
   void erase(size_t);
   iterator erase(iterator);
