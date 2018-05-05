@@ -23,4 +23,4 @@ before_script:
  - export GMOCK_LIBDIR=$GTEST_ROOT/build/googlemock
  - export GTEST_LIBDIR=$GTEST_ROOT/build/googlemock/gtest
  - cd ..
-script: g++ test.cpp -std=c++11 -I$GTEST_INCLUDEDIR -L$GTEST_LIBDIR -lgtest -lgtest_main -lpthread
+script: g++-7 test.cpp -std=c++17 -I$GTEST_INCLUDEDIR -L$GTEST_LIBDIR -lgtest -lgtest_main -lpthread

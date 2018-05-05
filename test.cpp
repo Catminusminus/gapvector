@@ -145,3 +145,44 @@ TEST_F(TestGapvector, insert_itr_itr_itr)
     gap_v2.insert(gap_v2.begin(), gap_v.begin(), gap_v.end());
     ASSERT_EQ(6, gap_v2.size());
 }
+
+TEST_F(TestGapvector, emplace_back)
+{
+    gap_v.emplace_back(3);
+    ASSERT_EQ(3, gap_v[2]);
+}
+
+TEST_F(TestGapvector, constructors)
+{
+    my::gapvector<int> gap_v2 = gap_v;
+    ASSERT_EQ(2, gap_v2.size());
+
+    my::gapvector<int> gap_v3(gap_v);
+    ASSERT_EQ(2, gap_v3.size());
+
+    my::gapvector<int> gap_v4 = {1, 2};
+    ASSERT_EQ(2, gap_v4.size());
+
+    my::gapvector<int> gap_v5({1, 2});
+    ASSERT_EQ(2, gap_v5.size());
+}
+
+TEST_F(TestGapvector, substitution)
+{
+    my::gapvector<int> gap_v2;
+    gap_v2 = gap_v;
+    ASSERT_EQ(2, gap_v2.size());
+
+    my::gapvector<int> gap_v4;
+    gap_v4 = {1, 2};
+    ASSERT_EQ(2, gap_v4.size());
+}
+
+TEST_F(TestGapvector, emplace)
+{
+    auto itr = gap_v.cbegin();
+    auto itr2 = gap_v.emplace(itr, 3, 4);
+    ASSERT_EQ(4, gap_v.size());
+    ASSERT_EQ(4, gap_v[1]);
+    ASSERT_EQ(4, *itr2);
+}
