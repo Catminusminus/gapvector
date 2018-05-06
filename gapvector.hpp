@@ -2,6 +2,7 @@
 #define GAPVECTOR_HPP
 
 #include <vector>
+#include <algorithm>
 #include <initializer_list>
 
 #include "gapvector_iterator.hpp"
@@ -54,6 +55,11 @@ public:
   gapvector &operator=(const gapvector &) = default;
   gapvector &operator=(gapvector &&) = default;
   gapvector &operator=(std::initializer_list<T>);
+
+  template <class inputIterator, std::enable_if_t<!std::is_integral<inputIterator>::value, std::nullptr_t> = nullptr>
+  void assign(inputIterator, inputIterator);
+  void assign(size_t, const T &);
+  void assign(std::initializer_list<T>);
 
   void insert(size_t, const T &);
   void insert(size_t, T &&);

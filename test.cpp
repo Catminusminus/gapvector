@@ -186,3 +186,18 @@ TEST_F(TestGapvector, emplace)
     ASSERT_EQ(4, gap_v[1]);
     ASSERT_EQ(4, *itr2);
 }
+
+TEST_F(TestGapvector, assign)
+{
+    my::gapvector<int> gap_v2 = gap_v;
+    gap_v2.assign({1, 2, 3, 4});
+    ASSERT_EQ(4, gap_v2.size());
+
+    my::gapvector<int> gap_v3 = gap_v;
+    gap_v3.assign(5, 1);
+    ASSERT_EQ(5, gap_v3.size());
+
+    my::gapvector<int> gap_v4;
+    gap_v4.assign(gap_v.begin(), gap_v.end());
+    ASSERT_EQ(2, gap_v4.size());
+}
