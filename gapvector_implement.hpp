@@ -61,6 +61,32 @@ void gapvector<T>::gap_alloc()
 }
 
 template <typename T>
+template <class inputIterator, std::enable_if_t<!std::is_integral<inputIterator>::value, std::nullptr_t>>
+void gapvector<T>::assign(inputIterator first, inputIterator end)
+{
+	this->clear();
+
+	std::for_each(first, end, [this](auto input) { inner_vector.push_back(input); });
+}
+
+template <typename T>
+void gapvector<T>::assign(size_t size, const T &value)
+{
+	this->clear();
+
+	for (size_t i = 0; i < size; ++i)
+	{
+		inner_vector.push_back(value);
+	}
+}
+
+template <typename T>
+void gapvector<T>::assign(std::initializer_list<T> init_list)
+{
+	assign(init_list.begin(), init_list.end());
+}
+
+template <typename T>
 void gapvector<T>::insert(size_t index, const T &value)
 {
 	format_gapvector(index);
@@ -148,22 +174,14 @@ template <typename T>
 template <class inputIterator>
 void gapvector<T>::insert(iterator itr, inputIterator first, inputIterator end)
 {
-	for (auto input_itr = first; input_itr != end; ++input_itr)
-	{
-		itr = insert(itr, *input_itr);
-		++itr;
-	}
+	std::for_each(first, end, [this, &itr](auto input) {itr = insert(itr, input); ++itr; });
 }
 
 template <typename T>
 template <class inputIterator>
 typename gapvector<T>::iterator gapvector<T>::insert(const_iterator itr, inputIterator first, inputIterator end)
 {
-	for (auto input_itr = first; input_itr != end; ++input_itr)
-	{
-		itr = insert(itr, *input_itr);
-		++itr;
-	}
+	std::for_each(first, end, [this, &itr](auto input) {itr = insert(itr, input); ++itr; });
 
 	return first == end ? itr : --itr;
 }
