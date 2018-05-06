@@ -67,10 +67,6 @@ void gapvector<T>::assign(inputIterator first, inputIterator end)
 	this->clear();
 
 	std::for_each(first, end, [this](auto input) { inner_vector.push_back(input); });
-	/*for (auto input_itr = first; input_itr != end; ++input_itr)
-	{
-		inner_vector.push_back(*input_itr);
-	}*/
 }
 
 template <typename T>
@@ -179,11 +175,6 @@ template <class inputIterator>
 void gapvector<T>::insert(iterator itr, inputIterator first, inputIterator end)
 {
 	std::for_each(first, end, [this, &itr](const T &input) {itr = insert(itr, input); ++itr; });
-	/*for (auto input_itr = first; input_itr != end; ++input_itr)
-	{
-		itr = insert(itr, *input_itr);
-		++itr;
-	}*/
 }
 
 template <typename T>
@@ -191,11 +182,6 @@ template <class inputIterator>
 typename gapvector<T>::iterator gapvector<T>::insert(const_iterator itr, inputIterator first, inputIterator end)
 {
 	std::for_each(first, end, [this, &itr](const T &input) {itr = insert(itr, input); ++itr; });
-	/*for (auto input_itr = first; input_itr != end; ++input_itr)
-	{
-		itr = insert(itr, *input_itr);
-		++itr;
-	}*/
 
 	return first == end ? itr : --itr;
 }
