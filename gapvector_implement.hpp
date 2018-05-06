@@ -27,6 +27,8 @@ gapvector<T> &gapvector<T>::operator=(std::initializer_list<T> init_list)
 	{
 		inner_vector.push_back(e);
 	}
+
+	return *this;
 }
 
 template <typename T>
