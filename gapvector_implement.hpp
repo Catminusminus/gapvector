@@ -174,14 +174,14 @@ template <typename T>
 template <class inputIterator>
 void gapvector<T>::insert(iterator itr, inputIterator first, inputIterator end)
 {
-	std::for_each(first, end, [this, &itr](const T &input) {itr = insert(itr, input); ++itr; });
+	std::for_each(first, end, [this, &itr](auto input) {itr = insert(itr, input); ++itr; });
 }
 
 template <typename T>
 template <class inputIterator>
 typename gapvector<T>::iterator gapvector<T>::insert(const_iterator itr, inputIterator first, inputIterator end)
 {
-	std::for_each(first, end, [this, &itr](const T &input) {itr = insert(itr, input); ++itr; });
+	std::for_each(first, end, [this, &itr](auto input) {itr = insert(itr, input); ++itr; });
 
 	return first == end ? itr : --itr;
 }
