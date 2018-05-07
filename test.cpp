@@ -213,3 +213,11 @@ TEST_F(TestGapvector, loop_reverse)
     ASSERT_EQ(2, gap_v.at(gap_v.size() - 1));
     ASSERT_EQ(3, i);
 }
+
+TEST_F(TestGapvector, swap)
+{
+    my::gapvector<int> gap_v2({1, 2, 3, 4});
+    gap_v.swap(gap_v2);
+    ASSERT_EQ(4, gap_v.size());
+    ASSERT_EQ(2, gap_v2.size());
+}

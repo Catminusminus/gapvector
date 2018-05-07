@@ -280,6 +280,14 @@ int gapvector<T>::size() const noexcept
 }
 
 template <typename T>
+void gapvector<T>::swap(gapvector<T> &gap_vector)
+{
+	gapvector<T> tmp_gap_vector = gap_vector;
+	gap_vector = *this;
+	*this = std::move(tmp_gap_vector);
+}
+
+template <typename T>
 T &gapvector<T>::operator[](size_t index)
 {
 	return const_cast<T &>((const_cast<const gapvector<T> &>(*this))[index]);

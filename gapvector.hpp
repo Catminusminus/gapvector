@@ -114,6 +114,7 @@ public:
   void clear() noexcept;
   int size() const noexcept;
   bool empty() const noexcept;
+  void swap(gapvector &);
 
   T &operator[](size_t);
   const T &operator[](size_t) const;
