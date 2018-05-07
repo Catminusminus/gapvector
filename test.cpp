@@ -201,3 +201,15 @@ TEST_F(TestGapvector, assign)
     gap_v4.assign(gap_v.begin(), gap_v.end());
     ASSERT_EQ(2, gap_v4.size());
 }
+
+TEST_F(TestGapvector, loop_reverse)
+{
+    int i = 1;
+    for (auto itr = gap_v.rbegin(); itr != gap_v.rend(); ++itr)
+    {
+        ASSERT_EQ(3 - i, *itr);
+        ++i;
+    }
+    ASSERT_EQ(2, gap_v.at(gap_v.size() - 1));
+    ASSERT_EQ(3, i);
+}

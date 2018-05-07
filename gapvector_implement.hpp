@@ -189,7 +189,7 @@ typename gapvector<T>::iterator gapvector<T>::insert(const_iterator itr, inputIt
 }
 
 template <typename T>
-inline void gapvector<T>::emplace(size_t index)
+inline void gapvector<T>::emplace([[maybe_unused]] size_t index)
 {
 }
 
@@ -345,6 +345,42 @@ template <typename T>
 typename gapvector<T>::const_iterator gapvector<T>::cend() const noexcept
 {
 	return gapvectorConstIterator<T>(this, this->size());
+}
+
+template <typename T>
+typename gapvector<T>::reverse_iterator gapvector<T>::rbegin() noexcept
+{
+	return gapvectorReverseIterator<T>(this, this->size());
+}
+
+template <typename T>
+typename gapvector<T>::const_reverse_iterator gapvector<T>::rbegin() const noexcept
+{
+	return gapvectorConstReverseIterator<T>(this, this->size());
+}
+
+template <typename T>
+typename gapvector<T>::reverse_iterator gapvector<T>::rend() noexcept
+{
+	return gapvectorReverseIterator<T>(this, 0);
+}
+
+template <typename T>
+typename gapvector<T>::const_reverse_iterator gapvector<T>::rend() const noexcept
+{
+	return gapvectorConstReverseIterator<T>(this, 0);
+}
+
+template <typename T>
+typename gapvector<T>::const_reverse_iterator gapvector<T>::crbegin() const noexcept
+{
+	return gapvectorConstReverseIterator<T>(this, this->size());
+}
+
+template <typename T>
+typename gapvector<T>::const_reverse_iterator gapvector<T>::crend() const noexcept
+{
+	return gapvectorConstReverseIterator<T>(this, 0);
 }
 
 template <typename T>
