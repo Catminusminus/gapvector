@@ -102,7 +102,7 @@ template <typename T>
 void gapvector<T>::insert(size_t index, T &&value)
 {
 	format_gapvector(index);
-	inner_vector[index] = std::forward<T>(value);
+	inner_vector[index] = std::move(value);
 	++gap_begin;
 	gap_alloc();
 	return;
@@ -134,7 +134,7 @@ template <typename T>
 typename gapvector<T>::iterator gapvector<T>::insert(iterator itr, T &&value)
 {
 	size_t index = itr.index;
-	insert(index, std::forward<T>(value));
+	insert(index, std::move(value));
 
 	auto gap_v_itr = this->begin();
 	gap_v_itr.advance(index);
@@ -145,7 +145,7 @@ template <typename T>
 typename gapvector<T>::iterator gapvector<T>::insert(const_iterator itr, T &&value)
 {
 	size_t index = itr.index;
-	insert(index, std::forward<T>(value));
+	insert(index, std::move(value));
 
 	auto gap_v_itr = this->begin();
 	gap_v_itr.advance(index);
@@ -223,7 +223,7 @@ void gapvector<T>::push_back(const T &value)
 template <typename T>
 void gapvector<T>::push_back(T &&value)
 {
-	inner_vector.push_back(std::forward<T>(value));
+	inner_vector.push_back(std::move(value));
 }
 
 template <typename T>
