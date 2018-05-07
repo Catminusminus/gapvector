@@ -7,6 +7,8 @@
 
 #include "gapvector_iterator.hpp"
 #include "gapvector_const_iterator.hpp"
+#include "gapvector_reverse_iterator.hpp"
+#include "gapvector_const_reverse_iterator.hpp"
 
 namespace my
 {
@@ -16,6 +18,10 @@ template <typename T>
 class gapvectorIterator;
 template <typename T>
 class gapvectorConstIterator;
+template <typename T>
+class gapvectorReverseIterator;
+template <typename T>
+class gapvectorConstReverseIterator;
 
 template <typename T>
 class gapvector
@@ -24,10 +30,16 @@ class gapvector
   friend class gapvectorIterator;
   template <typename>
   friend class gapvectorConstIterator;
+  template <typename>
+  friend class gapvectorReverseIterator;
+  template <typename>
+  friend class gapvectorConstReverseIterator;
 
 public:
   using iterator = gapvectorIterator<T>;
   using const_iterator = gapvectorConstIterator<T>;
+  using reverse_iterator = gapvectorReverseIterator<T>;
+  using const_reverse_iterator = gapvectorConstReverseIterator<T>;
 
   iterator begin() noexcept;
   const_iterator begin() const noexcept;
@@ -37,6 +49,15 @@ public:
 
   const_iterator cbegin() const noexcept;
   const_iterator cend() const noexcept;
+
+  reverse_iterator rbegin() noexcept;
+  const_reverse_iterator rbegin() const noexcept;
+
+  reverse_iterator rend() noexcept;
+  const_reverse_iterator rend() const noexcept;
+
+  const_reverse_iterator crbegin() const noexcept;
+  const_reverse_iterator crend() const noexcept;
 
 private:
   std::vector<T> inner_vector;
