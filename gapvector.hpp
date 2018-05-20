@@ -15,15 +15,6 @@ namespace my
 constexpr size_t N = 10;
 
 template <typename T>
-class gapvectorIterator;
-template <typename T>
-class gapvectorConstIterator;
-template <typename T>
-class gapvectorReverseIterator;
-template <typename T>
-class gapvectorConstReverseIterator;
-
-template <typename T>
 class gapvector
 {
   template <typename>
@@ -72,28 +63,29 @@ public:
   gapvector(const gapvector &) = default;
   gapvector(gapvector &&) = default;
   gapvector(std::initializer_list<T>);
+  ~gapvector();
 
   gapvector &operator=(const gapvector &) = default;
   gapvector &operator=(gapvector &&) = default;
   gapvector &operator=(std::initializer_list<T>);
 
-  template <class inputIterator, std::enable_if_t<!std::is_integral<inputIterator>::value, std::nullptr_t> = nullptr>
+  template <typename U>
+  using is_integral_v = typename std::is_integral<U>::value;
+  template <class inputIterator, std::enable_if_t<!std::is_integral_v<inputIterator>, std::nullptr_t> = nullptr>
   void assign(inputIterator, inputIterator);
   void assign(size_t, const T &);
   void assign(std::initializer_list<T>);
 
   void insert(size_t, const T &);
   void insert(size_t, T &&);
-  iterator insert(iterator, const T &);
-  iterator insert(const_iterator, const T &);
-  iterator insert(iterator, T &&);
-  iterator insert(const_iterator, T &&);
-  void insert(iterator, size_t, const T &);
-  iterator insert(const_iterator, size_t, const T &);
-  template <class inputIterator>
-  void insert(iterator, inputIterator, inputIterator);
-  template <class inputIterator>
-  iterator insert(const_iterator, inputIterator, inputIterator);
+  template <typename inputIterator, std::enable_if_t<!std::is_integral_v<inputIterator>, std::nullptr_t> = nullptr>
+  decltype(auto) insert(inputIterator, const T &);
+  template <typename inputIterator, std::enable_if_t<!std::is_integral_v<inputIterator>, std::nullptr_t> = nullptr>
+  decltype(auto) insert(inputIterator, T &&);
+  template <typename inputIterator, std::enable_if_t<!std::is_integral_v<inputIterator>, std::nullptr_t> = nullptr>
+  decltype(auto) insert(inputIterator, size_t, const T &);
+  template <typename gIterator, typename inputIterator, std::enable_if_t<!std::is_integral_v<inputIterator>, std::nullptr_t> = nullptr>
+  decltype(auto) insert(gIterator, inputIterator, inputIterator);
 
   void emplace(size_t);
   template <class Head, class... Tail>
@@ -112,7 +104,7 @@ public:
 
   void pop_back();
   void clear() noexcept;
-  int size() const noexcept;
+  size_t size() const noexcept;
   bool empty() const noexcept;
   void swap(gapvector &);
 
@@ -132,6 +124,6 @@ public:
   const T *data() const noexcept;
 };
 #include "gapvector_implement.hpp"
-};
+}; // namespace my
 
 #endif
