@@ -1,7 +1,7 @@
 #ifndef GAPVECTOR_ITERATOR_HPP
 #define GAPVECTOR_ITERATOR_HPP
 
-#include "gapvector.hpp"
+#include "gapvector_impl.hpp"
 #include <boost/iterator/iterator_facade.hpp>
 #include <iterator>
 #include <memory>
@@ -34,6 +34,6 @@ public:
   void advance(size_t);
 };
 #include "gapvector_iterator_implement.hpp"
-};
+}; // namespace my
 
 #endif
