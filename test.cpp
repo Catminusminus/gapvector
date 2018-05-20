@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "gapvector_pimpl.hpp"
+#include "gapvector.hpp"
 
 class TestGapvector : public ::testing::Test
 {
@@ -222,7 +222,7 @@ TEST_F(TestGapvector, swap)
     ASSERT_EQ(2, gap_v2.size());
 }
 
-class TestGapvectorPimpl : public ::testing::Test
+class TestGapVector : public ::testing::Test
 {
   protected:
     my::GapVector<int> gap_vector;
@@ -237,7 +237,7 @@ class TestGapvectorPimpl : public ::testing::Test
     }
 };
 
-TEST_F(TestGapvectorPimpl, size)
+TEST_F(TestGapVector, size)
 {
     ASSERT_EQ(2, gap_vector.size());
 }

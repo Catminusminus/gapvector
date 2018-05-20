@@ -1,30 +1,15 @@
-#ifndef GAPVECTOR_HPP
-#define GAPVECTOR_HPP
-
-#include <vector>
-#include <algorithm>
-#include <initializer_list>
-
-#include "gapvector_iterator.hpp"
-#include "gapvector_const_iterator.hpp"
-#include "gapvector_reverse_iterator.hpp"
-#include "gapvector_const_reverse_iterator.hpp"
+#ifndef GAPVECTOR_PIMPL_HPP
+#define GAPVECTOR_PIMPL_HPP
+#include "gapvector_impl/gapvector_impl.hpp"
 
 namespace my
 {
-constexpr size_t N = 10;
+template <typename T>
+class gapvector;
 
 template <typename T>
-class gapvector
+class gapvectorPimpl
 {
-  template <typename>
-  friend class gapvectorIterator;
-  template <typename>
-  friend class gapvectorConstIterator;
-  template <typename>
-  friend class gapvectorReverseIterator;
-  template <typename>
-  friend class gapvectorConstReverseIterator;
 
 public:
   using iterator = gapvectorIterator<T>;
@@ -51,45 +36,37 @@ public:
   const_reverse_iterator crend() const noexcept;
 
 private:
-  std::vector<T> inner_vector;
-  size_t gap_begin = 0;
-  size_t gap_last = N - 1;
-
-  void format_gapvector(size_t);
-  void gap_alloc();
+  std::unique_ptr<gapvector<T>> gap_v;
 
 public:
-  gapvector();
-  gapvector(const gapvector &) = default;
-  gapvector(gapvector &&) = default;
-  gapvector(std::initializer_list<T>);
-  ~gapvector();
+  gapvectorPimpl() : gap_v(std::make_unique<gapvector<T>>()) {}
+  gapvectorPimpl(const gapvectorPimpl &another) : gap_v(another.gap_v){};
+  gapvectorPimpl(gapvectorPimpl &&) = default;
+  gapvectorPimpl(std::initializer_list<T>);
+  ~gapvectorPimpl();
 
-  gapvector &operator=(const gapvector &) = default;
-  gapvector &operator=(gapvector &&) = default;
-  gapvector &operator=(std::initializer_list<T>);
+  gapvectorPimpl &operator=(const gapvectorPimpl &);
+  gapvectorPimpl &operator=(gapvectorPimpl &&) = default;
+  gapvectorPimpl &operator=(std::initializer_list<T>);
 
-  template <typename U>
-  using is_integral_v = typename std::is_integral<U>::value;
-  template <class inputIterator, std::enable_if_t<!std::is_integral_v<inputIterator>, std::nullptr_t> = nullptr>
+  template <class inputIterator>
   void assign(inputIterator, inputIterator);
   void assign(size_t, const T &);
   void assign(std::initializer_list<T>);
 
   void insert(size_t, const T &);
   void insert(size_t, T &&);
-  template <typename inputIterator, std::enable_if_t<!std::is_integral_v<inputIterator>, std::nullptr_t> = nullptr>
-  decltype(auto) insert(inputIterator, const T &);
-  template <typename inputIterator, std::enable_if_t<!std::is_integral_v<inputIterator>, std::nullptr_t> = nullptr>
-  decltype(auto) insert(inputIterator, T &&);
-  template <typename inputIterator, std::enable_if_t<!std::is_integral_v<inputIterator>, std::nullptr_t> = nullptr>
-  decltype(auto) insert(inputIterator, size_t, const T &);
-  template <typename gIterator, typename inputIterator, std::enable_if_t<!std::is_integral_v<inputIterator>, std::nullptr_t> = nullptr>
-  decltype(auto) insert(gIterator, inputIterator, inputIterator);
+  iterator insert(iterator, const T &);
+  iterator insert(const_iterator, const T &);
+  iterator insert(iterator, T &&);
+  iterator insert(const_iterator, T &&);
+  void insert(iterator, size_t, const T &);
+  iterator insert(const_iterator, size_t, const T &);
+  template <class inputIterator>
+  void insert(iterator, inputIterator, inputIterator);
+  template <class inputIterator>
+  iterator insert(const_iterator, inputIterator, inputIterator);
 
-  void emplace(size_t);
-  template <class Head, class... Tail>
-  void emplace(size_t, Head &&, Tail &&...);
   template <class... Args>
   iterator emplace(const_iterator, Args &&...);
 
@@ -106,7 +83,7 @@ public:
   void clear() noexcept;
   size_t size() const noexcept;
   bool empty() const noexcept;
-  void swap(gapvector &);
+  void swap(gapvectorPimpl &);
 
   T &operator[](size_t);
   const T &operator[](size_t) const;
@@ -124,6 +101,8 @@ public:
   const T *data() const noexcept;
 };
 #include "gapvector_implement.hpp"
-}; // namespace my
 
+template <typename T>
+using GapVector = gapvectorPimpl<T>;
+} // namespace my
 #endif
