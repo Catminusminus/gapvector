@@ -2,8 +2,7 @@
 [![Build Status](https://travis-ci.org/Catminusminus/gapvector.svg?branch=master)](https://travis-ci.org/Catminusminus/gapvector)
 
 A simple implementation of gap buffer with STL-like interface.
-## Description
-
+## How To Use
 ## Requirements
 - Boost C++ Libraries 
 - g++-7
