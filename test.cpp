@@ -241,3 +241,204 @@ TEST_F(TestGapVector, size)
 {
     ASSERT_EQ(2, gap_vector.size());
 }
+
+TEST_F(TestGapVector, subscript_operator)
+{
+    ASSERT_EQ(1, gap_vector[0]);
+    ASSERT_EQ(2, gap_vector[1]);
+}
+
+TEST_F(TestGapVector, insert)
+{
+    gap_vector.insert(1, 3);
+    ASSERT_EQ(3, gap_vector.size());
+    ASSERT_EQ(3, gap_vector[1]);
+}
+
+TEST_F(TestGapVector, erase)
+{
+    gap_vector.insert(1, 3);
+    gap_vector.erase(1);
+    ASSERT_EQ(2, gap_vector.size());
+    ASSERT_EQ(2, gap_vector[1]);
+}
+
+TEST_F(TestGapVector, at)
+{
+    ASSERT_EQ(1, gap_vector.at(0));
+    ASSERT_EQ(2, gap_vector.at(1));
+    ASSERT_THROW(gap_vector.at(2), std::out_of_range);
+}
+
+TEST_F(TestGapVector, copy)
+{
+    my::GapVector<int> gap_vector2 = gap_vector;
+    ASSERT_EQ(1, gap_vector2.at(0));
+    ASSERT_EQ(2, gap_vector2.at(1));
+    gap_vector.erase(1);
+    ASSERT_EQ(2, gap_vector2.at(1));
+}
+
+TEST_F(TestGapVector, front)
+{
+    ASSERT_EQ(1, gap_vector.front());
+    gap_vector.front() = 3;
+    ASSERT_EQ(3, gap_vector[0]);
+}
+
+TEST_F(TestGapVector, back)
+{
+    ASSERT_EQ(2, gap_vector.back());
+    gap_vector.back() = 3;
+    ASSERT_EQ(3, gap_vector[1]);
+}
+
+TEST_F(TestGapVector, begin)
+{
+    auto itr = gap_vector.begin();
+    ASSERT_FALSE(itr == gap_vector.end());
+    ASSERT_EQ(1, *itr);
+    ++itr;
+    ASSERT_EQ(2, *itr);
+}
+
+TEST_F(TestGapVector, loop)
+{
+    int i = 1;
+    for (auto itr = gap_vector.begin(); itr != gap_vector.end(); ++itr)
+    {
+        ASSERT_EQ(i, *itr);
+        ++i;
+    }
+    ASSERT_EQ(3, i);
+}
+
+TEST_F(TestGapVector, insert_itr)
+{
+    auto itr = gap_vector.begin();
+    itr = gap_vector.insert(itr, 3);
+    ASSERT_EQ(3, gap_vector.size());
+    ASSERT_EQ(3, gap_vector[0]);
+    ++itr;
+    ASSERT_EQ(1, *(itr));
+}
+
+TEST_F(TestGapVector, erase_itr)
+{
+    auto itr = gap_vector.begin();
+    itr = gap_vector.insert(itr, 3);
+    itr = gap_vector.erase(itr);
+    ASSERT_EQ(2, gap_vector[1]);
+}
+
+TEST_F(TestGapVector, loop_const)
+{
+    int i = 1;
+    for (auto itr = gap_vector.cbegin(); itr != gap_vector.cend(); ++itr)
+    {
+        ASSERT_EQ(i, *itr);
+        ++i;
+    }
+}
+
+TEST_F(TestGapVector, insert_itr_plus)
+{
+    gap_vector.push_back(3);
+    auto itr = gap_vector.insert(gap_vector.begin() + 1, 4);
+    ASSERT_EQ(4, *itr);
+    ASSERT_EQ(4, gap_vector[1]);
+}
+
+TEST_F(TestGapVector, empty)
+{
+    ASSERT_FALSE(gap_vector.empty());
+    gap_vector.clear();
+    ASSERT_TRUE(gap_vector.empty());
+}
+
+TEST_F(TestGapVector, insert_itr_itr_itr)
+{
+    my::GapVector<int> gap_vector2;
+    gap_vector2.push_back(3);
+    gap_vector2.push_back(4);
+    gap_vector.insert(gap_vector.begin(), gap_vector2.begin(), gap_vector2.end());
+    ASSERT_EQ(4, gap_vector.size());
+    gap_vector2.insert(gap_vector2.begin(), gap_vector.begin(), gap_vector.end());
+    ASSERT_EQ(6, gap_vector2.size());
+}
+
+TEST_F(TestGapVector, emplace_back)
+{
+    gap_vector.emplace_back(3);
+    ASSERT_EQ(3, gap_vector[2]);
+}
+
+TEST_F(TestGapVector, constructors)
+{
+    my::GapVector<int> gap_vector2 = gap_vector;
+    ASSERT_EQ(2, gap_vector2.size());
+
+    my::GapVector<int> gap_vector3(gap_vector);
+    ASSERT_EQ(2, gap_vector3.size());
+
+    my::GapVector<int> gap_vector4 = {1, 2};
+    ASSERT_EQ(2, gap_vector4.size());
+
+    my::GapVector<int> gap_vector5({1, 2});
+    ASSERT_EQ(2, gap_vector5.size());
+}
+
+TEST_F(TestGapVector, substitution)
+{
+    my::GapVector<int> gap_vector2;
+    gap_vector2 = gap_vector;
+    ASSERT_EQ(2, gap_vector2.size());
+
+    my::GapVector<int> gap_vector4;
+    gap_vector4 = {1, 2};
+    ASSERT_EQ(2, gap_vector4.size());
+}
+
+TEST_F(TestGapVector, emplace)
+{
+    auto itr = gap_vector.cbegin();
+    auto itr2 = gap_vector.emplace(itr, 3, 4);
+    ASSERT_EQ(4, gap_vector.size());
+    ASSERT_EQ(4, gap_vector[1]);
+    ASSERT_EQ(4, *itr2);
+}
+
+TEST_F(TestGapVector, assign)
+{
+    my::GapVector<int> gap_vector2 = gap_vector;
+    gap_vector2.assign({1, 2, 3, 4});
+    ASSERT_EQ(4, gap_vector2.size());
+
+    my::GapVector<int> gap_vector3 = gap_vector;
+    gap_vector3.assign(5, 1);
+    ASSERT_EQ(5, gap_vector3.size());
+
+    my::GapVector<int> gap_vector4;
+    gap_vector4.assign(gap_vector.begin(), gap_vector.end());
+    ASSERT_EQ(2, gap_vector4.size());
+}
+
+TEST_F(TestGapVector, loop_reverse)
+{
+    int i = 1;
+    for (auto itr = gap_vector.rbegin(); itr != gap_vector.rend(); ++itr)
+    {
+        ASSERT_EQ(3 - i, *itr);
+        ++i;
+    }
+    ASSERT_EQ(2, gap_vector.at(gap_vector.size() - 1));
+    ASSERT_EQ(3, i);
+}
+
+TEST_F(TestGapVector, swap)
+{
+    my::GapVector<int> gap_vector2({1, 2, 3, 4});
+    gap_vector.swap(gap_vector2);
+    ASSERT_EQ(4, gap_vector.size());
+    ASSERT_EQ(2, gap_vector2.size());
+}
