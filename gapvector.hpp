@@ -40,7 +40,7 @@ private:
 
 public:
   gapvectorPimpl() : gap_v(std::make_unique<gapvector<T>>()) {}
-  gapvectorPimpl(const gapvectorPimpl &another) : gap_v(another.gap_v){};
+  gapvectorPimpl(const gapvectorPimpl &another);
   gapvectorPimpl(gapvectorPimpl &&) = default;
   gapvectorPimpl(std::initializer_list<T>);
   ~gapvectorPimpl();

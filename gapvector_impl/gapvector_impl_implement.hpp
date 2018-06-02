@@ -44,7 +44,7 @@ void gapvector<T>::format_gapvector(size_t index)
 
 	for (size_t i = 0; i < gap_last - gap_begin + 1; ++i)
 	{
-		inner_vector.insert(inner_vector.begin() + index, 0);
+		inner_vector.insert(inner_vector.begin() + index, std::move(T()));
 	}
 
 	gap_last = index + gap_last - gap_begin;

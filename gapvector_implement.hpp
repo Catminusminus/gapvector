@@ -2,6 +2,13 @@
 #define GAPVECTOR_PIMPL_IMPLEMENT_HPP
 
 template <typename T>
+gapvectorPimpl<T>::gapvectorPimpl(const gapvectorPimpl &another)
+{
+    gap_v = std::make_unique<gapvector<T>>();
+    *gap_v = *(another.gap_v);
+}
+
+template <typename T>
 gapvectorPimpl<T>::gapvectorPimpl(std::initializer_list<T> init_list)
 {
     gap_v = std::make_unique<gapvector<T>>(init_list);
@@ -166,7 +173,7 @@ size_t gapvectorPimpl<T>::size() const noexcept
 template <typename T>
 void gapvectorPimpl<T>::swap(gapvectorPimpl<T> &another)
 {
-    swap(this->gap_v, another.gap_v);
+    this->gap_v.swap(another.gap_v);
 }
 
 template <typename T>
